@@ -56,8 +56,9 @@ def start(uuid):
           model = CTGAN.load('my_model.pkl')  # подгрузка матрицы
           new_data = model.sample(30000)  # генерация 300 сэмплов (300 строк с данными). ЧИСЛО ГЕНЕРАЦИЙ СТАВИТЬ КРАТНЫМ 3!!!
           data_filter(new_data, fl, s, h, pl)
+          return jsonify(success=True)
       except Exception as e:
-        print(f'caught {type(e)}: e')
+            return jsonify(success=True)
 @app.route('/get-status/<uuid>')
 def get_status(uuid):
     if not os.listdir(f'/projects/{uuid}'):
