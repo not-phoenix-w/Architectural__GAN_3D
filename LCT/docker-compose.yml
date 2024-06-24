@@ -1,0 +1,48 @@
+version: '3'
+services:
+  php:
+    restart: always
+    depends_on:
+      - mysql  
+    build:
+      dockerfile: ./DockerfilePhp
+      context: .
+    volumes:
+      - './src:/var/www/html'
+      - './php:/var/www/php'
+      - './projects:/projects'
+    environment:
+      - MYSQL_PWD=3k$hUQ0#+JvR()L
+      - MYSQL_LOGIN=php
+      - MYSQL_DB=project
+      - MYSQL_HOST=mysql
+      - AI_HOST=ai
+      - AI_PORT=8989
+      - TWOGIS_KEY=7ae40b30-4924-47ab-bb55-db698df32ad8
+  nginx:
+    image: nginx:latest
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - './src:/var/www/html'
+      - './docker/nginx/conf.d:/etc/nginx/conf.d'
+      - './docker/nginx/certs:/etc/nginx/certs'
+      - './docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf'
+      - './docker/nginx/logs:/var/log/nginx'
+  mysql:
+    image: mysql:latest
+    restart: always
+    volumes:
+      - './mysql:/var/lib/mysql'
+    environment:
+      - MYSQL_ROOT_PASSWORD=?C9QzWB#9!aiQ%V|
+  ai:
+    build:
+      dockerfile: DockerfilePython
+      context: .
+    restart: always
+    volumes:
+      - './projects:/projects'
+      

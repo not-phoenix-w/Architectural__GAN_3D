@@ -1,0 +1,13 @@
+FROM python:3.10-bookworm
+WORKDIR /app
+COPY ./python /app/
+WORKDIR /app/src
+RUN pip install -r requirements.txt
+RUN useradd ai -d /app
+RUN chown ai /app
+RUN chmod -R 777 /app
+RUN mkdir /projects
+RUN chown -R ai /projects
+RUN chmod -R 777 /projects
+USER ai
+CMD ["python", "src/server.py"]
