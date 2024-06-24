@@ -54,7 +54,7 @@ def start(uuid):
               slice_model = slice_model.transpose()
               slice_model.to_csv(r'/projects/{uuid}', header='model', index=None, sep=' ', mode='a')
           model = CTGAN.load('my_model.pkl')  # подгрузка матрицы
-          new_data = ctgan.sample(30000)  # генерация 300 сэмплов (300 строк с данными). ЧИСЛО ГЕНЕРАЦИЙ СТАВИТЬ КРАТНЫМ 3!!!
+          new_data = model.sample(30000)  # генерация 300 сэмплов (300 строк с данными). ЧИСЛО ГЕНЕРАЦИЙ СТАВИТЬ КРАТНЫМ 3!!!
           data_filter(new_data, fl, s, h, pl)
       except Exception as e:
         print(f'caught {type(e)}: e')
