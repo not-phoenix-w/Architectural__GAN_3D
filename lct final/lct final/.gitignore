@@ -1,0 +1,3 @@
+mysql/
+docker/nginx/logs/access.log
+projects/
